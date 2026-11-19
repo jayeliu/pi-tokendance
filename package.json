@@ -1,6 +1,6 @@
 {
   "name": "pi-tokendance",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "description": "TokenDance provider for pi, authenticated with OAuth (authorization code + PKCE) and defaulting to the OpenAI Responses protocol.",
   "keywords": [
