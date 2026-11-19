@@ -122,12 +122,16 @@ TD_REQUIRE_NETWORK=1 node test.ts
 
 ## 发布（维护者）
 
-推送到 `v*` tag 会触发 `.github/workflows/publish.yml`：校验 tag 与 `package.json` 版本一致 → 跑测试 → `npm publish --provenance --access public`。
+推送到 `v*` tag 会触发 `.github/workflows/publish.yml`：校验 tag 与 `package.json` 版本一致 → 跑测试 → `npm publish --access public`。
 
-一次性准备：
+发布使用 **npm trusted publishing（OIDC）**，不需要任何长期 token：workflow 里的 `id-token: write` 让 npm CLI 把 GitHub OIDC token 换成短期的 publish token（provenance 会自动生成）。
 
-1. 在 npmjs.com 生成 **Granular Access Token**（读写 `pi-tokendance`，或首次发布时选 “Allow all packages”）。
-2. 写入仓库 secret：`gh secret set NPM_TOKEN -R jayeliu/pi-tokendance`。
+一次性配置（在 npmjs.com 上，包管理页面）：
+
+1. 打开 `https://www.npmjs.com/package/pi-tokendance/access` → **Trusted Publisher** → **GitHub Actions**。
+2. 填写：Organization or user `jayeliu`、Repository `pi-tokendance`、Workflow filename `publish.yml`、Environment 留空。
+3. **勾选 “Allow npm publish”**（`npm stage publish` 默认允许，但直接 `npm publish` 必须显式勾选）。
+4. 首次发布必须在配置后 **2 天内**完成，否则该配置会过期。
 
 发版：
 
@@ -135,6 +139,8 @@ TD_REQUIRE_NETWORK=1 node test.ts
 npm version patch        # 或 minor / major，会自动提交并打 tag
 git push --follow-tags
 ```
+
+可选加固：把包页面 Settings → Publishing access 设为 “Require two-factor authentication and disallow tokens”，并删除不再需要的 `NPM_TOKEN` secret。
 
 ## 文件
 
