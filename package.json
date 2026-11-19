@@ -1,0 +1,43 @@
+{
+  "name": "pi-tokendance",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "TokenDance provider for pi, authenticated with OAuth (authorization code + PKCE) and defaulting to the OpenAI Responses protocol.",
+  "keywords": [
+    "pi-package",
+    "pi-extension",
+    "tokendance",
+    "oauth",
+    "openai-responses"
+  ],
+  "license": "MIT",
+  "author": "jayeliu <jaeliu2000@gmail.com>",
+  "homepage": "https://github.com/jayeliu/pi-tokendance#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jayeliu/pi-tokendance.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jayeliu/pi-tokendance/issues"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "pi": {
+    "extensions": [
+      "./index.ts"
+    ]
+  },
+  "scripts": {
+    "test": "node test.ts"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "@earendil-works/pi-ai": "*",
+    "@earendil-works/pi-coding-agent": "*"
+  }
+}
